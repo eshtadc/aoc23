@@ -1,4 +1,4 @@
-const aocDay = 2;
+const aocDay = 3;
 
 async function loadModule(day) {
     return await import(`./day${day}/index.js`);
@@ -6,5 +6,5 @@ async function loadModule(day) {
 
 const { solve } = await loadModule(aocDay);
 
-solve(1);
+// solve(1, true);
 solve(2);
