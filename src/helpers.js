@@ -88,3 +88,53 @@ export function drawGrid(grid, [tlX, tlY], [brX, brY], empty='.') {
         console.log(line);
     }
 }
+
+export class Looper {
+    constructor(values) { 
+        this.current = -1;
+        this.max = values.length - 1;
+        this.values = values;
+    }
+
+    [Symbol.iterator]() {
+        return {
+            next: () => {
+                this.current++;
+                if (this.current > this.max) {
+                    this.current = 0;
+                }
+                return {
+                    value: this.values[this.current],
+                    done: false,
+                }
+            } 
+        }
+    }
+}
+
+function gcd(a, b){
+    // Euclidean algorithm
+    while (b != 0){
+        var temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+
+export function lcm(a, b){
+    return (a * b / gcd(a, b));
+}
+
+export function lcmm(args){
+    // Recursively iterate through pairs of arguments
+    // i.e. lcm(args[0], lcm(args[1], lcm(args[2], args[3])))
+
+    if(args.length == 2){
+        return lcm(args[0], args[1]);
+    } else {
+        var arg0 = args[0];
+        args.shift();
+        return lcm(arg0, lcmm(args));
+    }
+}
